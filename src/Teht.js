@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Map, TileLayer} from 'react-leaflet'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
-//import axios from 'axios'
 
 import './App.css';
 import MyListItem from './MyListItem';
