@@ -41,3 +41,13 @@
   width: 100%;
   height: 100vh;
 }
+
+.myNavBarDrop {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.dropDiv{
+  max-height: 500px;
+  overflow-y: scroll;
+}

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Map, TileLayer} from 'react-leaflet'
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { Map, TileLayer, Marker, Popup} from 'react-leaflet'
+import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap'
 
 import './App.css';
-import MyListItem from './MyListItem';
 
 class Teht extends Component {
   constructor(props){
@@ -12,7 +11,16 @@ class Teht extends Component {
       position: [60.192059, 24.945831],
       zoom: 12,
       data: {},
-      bikeStationData: []
+      bikeStationData: [],
+      stationPos: [0,0],
+      stationInfo:{
+        name: null,
+        lat: null,
+        lon: null,
+        bikesAvailable: null,
+        emtpyPlaces: null
+      },
+      showMarker: false
     }
   }
 
@@ -43,6 +51,19 @@ class Teht extends Component {
 
   }
 
+  handleClick(dataItem){
+    console.log(dataItem);
+    this.setState({showMarker:true});
+    this.setState({stationPos:[dataItem.lat, dataItem.lon]});
+    this.setState({stationInfo:{
+      name: dataItem.name,
+      lat: dataItem.lat,
+      lon: dataItem.lon,
+      bikesAvailable: dataItem.bikesAvailable,
+      emtpyPlaces: dataItem.spacesAvailable
+    }})
+  }
+
   render(){
     return (
       <div className="Teht">
@@ -53,7 +74,15 @@ class Teht extends Component {
               <Nav.Link href="#home">Home</Nav.Link>
               <Nav.Link href="#link">Link</Nav.Link>
               <NavDropdown title="Kaupunkipyöräpaikat" id="basic-nav-dropdown">
-                <MyListItem listitems={this.state.bikeStationData} />
+              <div className="dropDiv">
+                <ul className="list-group">
+                  {this.state.bikeStationData.map(listitem => (
+                    <li className="list-group-item list-group-item-primary" key={listitem.stationId}>
+                      <Button onClick={() => this.handleClick(listitem)}>{listitem.name}</Button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
@@ -64,6 +93,16 @@ class Teht extends Component {
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {this.state.showMarker && <Marker position={this.state.stationPos}>
+            <Popup>
+              <ul>
+                <li>Aseman nimi: {this.state.stationInfo.name}</li>
+                <li>Sijainti: {this.state.stationInfo.lat} {this.state.stationInfo.lon}</li>
+                <li>Pyöriä jäljellä: {this.state.stationInfo.bikesAvailable}</li>
+                <li>Tyhjiä paikkoja: {this.state.stationInfo.emtpyPlaces}</li>
+              </ul>
+            </Popup>
+          </Marker>}
         </Map>
       </div>
     );
