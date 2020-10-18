@@ -3,8 +3,10 @@ import { Map, TileLayer, Marker, Popup} from 'react-leaflet'
 import { Navbar, Nav, NavDropdown, Button, Card, Table } from 'react-bootstrap'
 
 import './App.css';
+require('dotenv').config();
 
 class Teht extends Component {
+  
   constructor(props){
     super(props)
     this.state = {
@@ -64,7 +66,7 @@ class Teht extends Component {
       emtpyPlaces: dataItem.spacesAvailable
     }})
 
-    fetch('http://api.openweathermap.org/data/2.5/weather?lang=fi&lat=' + dataItem.lat + '&lon=' + dataItem.lon + '&appid=' + '05883d33be511c917ba7b0449845a37f')
+    fetch('http://api.openweathermap.org/data/2.5/weather?lang=fi&lat=' + dataItem.lat + '&lon=' + dataItem.lon + '&appid=' + process.env.REACT_APP_WEATHER_API_KEY)
     .then(response => response.json())
     .then(dataFromApi => {
       this.setState({weatherData: dataFromApi});
