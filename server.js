@@ -11,7 +11,7 @@ app.use(cors());
 app.use(serveStatic(path.join(__dirname, 'build')));
 
 
-var server = app.listen(process.env.Port || 3000, function() {
+var server = app.listen(process.env.PORT|| 3000, function() {
     var port = server.address().port;
     console.log('Example app listening at port %s', port);
 });
