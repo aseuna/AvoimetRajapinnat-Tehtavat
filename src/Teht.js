@@ -66,7 +66,7 @@ class Teht extends Component {
       emtpyPlaces: dataItem.spacesAvailable
     }})
 
-    fetch('http://api.openweathermap.org/data/2.5/weather?lang=fi&lat=' + dataItem.lat + '&lon=' + dataItem.lon + '&appid=' + process.env.REACT_APP_WEATHER_API_KEY)
+    fetch('https://api.openweathermap.org/data/2.5/weather?lang=fi&lat=' + dataItem.lat + '&lon=' + dataItem.lon + '&appid=' + process.env.REACT_APP_WEATHER_API_KEY)
     .then(response => response.json())
     .then(dataFromApi => {
       this.setState({weatherData: dataFromApi});
