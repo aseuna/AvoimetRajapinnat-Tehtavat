@@ -51,3 +51,15 @@
   max-height: 500px;
   overflow-y: scroll;
 }
+
+.map{
+  z-index: 30;
+}
+
+.weatherCard{
+    position: absolute;
+    right: 100px;
+    max-height: 600px;
+    top: 100px;
+    z-index: 99;
+  }
